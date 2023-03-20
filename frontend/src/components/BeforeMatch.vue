@@ -5,7 +5,7 @@
       <button v-else class="match-button btn" @click="matchModal = true">Match</button>
      </div>
       <LoginModal v-if="loginModal" @close="loginModal = false" @register="loginModal = false; registerModal = true;"></LoginModal>
-      <MatchModal v-if="matchModal" @close="matchModal = false"></MatchModal>
+      <MatchModal v-if="matchModal" @close="matchModal = false" @login="isLoggedIn=true; LoginModal=false;"></MatchModal>
       <RegisterModal v-if="registerModal" @submit="registerModal =false" @close="registerModal = false"></RegisterModal>
     </div>
 </template>

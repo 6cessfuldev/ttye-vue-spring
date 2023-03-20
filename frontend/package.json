@@ -35,7 +35,8 @@
     "vue": "^3.2.13",
     "vue-plugin-load-script": "^2.1.1",
     "vue-router": "^4.0.3",
-    "vue-tinymce-editor": "^1.6.2"
+    "vue-tinymce-editor": "^1.6.2",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

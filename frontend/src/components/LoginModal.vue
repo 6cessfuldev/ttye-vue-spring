@@ -30,6 +30,47 @@
       </div>
     </div>
   </template>
+<script>
+import axios from 'axios';
+import $ from 'jquery';
+
+export default {
+  setup() {
+
+    function login(){
+
+      var id = document.getElementById("id").value;
+      var pw = document.getElementById('pw').value;
+
+      alert("login");
+      axios.get("http://localhost:8080/user/login", {
+        id : id,
+        pw : pw
+      })
+      .then(function(response){
+        if(!response.data){
+          $(".error-message").show();
+          return false;
+        }
+        this.$emit("login");
+        return true;
+
+      })
+      .catch(function(error){
+        alert(error);
+      })
+
+    }
+
+    return {
+      login,
+    }
+
+  }
+}
+</script>
+
+
   
   <style scoped>
   .modal-mask {

@@ -39,25 +39,26 @@
     </div>
   </template>
 <script>
-import {ref} from 'vue';
 import axios from 'axios';
 
 export default {
   setup() {
-    const id = ref('')
-    const pw1 = ref('')
-    const pw2 = ref('')
-    const username = ref('')
-    const email = ref('')
 
     function alreadyId(){
+
+      var id = document.getElementById('id').value;
+
       axios.get("http://localhost:8080/user/alreadyId", {
-        id: id
+        id:id
       })
-        .then(function(response){
-          return response.data;
-        })
+      .then(function(response){
+        return response.data;
+      })
+      .catch(function(error){
+        alert(error);
         return false;
+      })
+        
     }
 
     function validation(){
@@ -95,11 +96,6 @@ export default {
     }
   
     return {
-        id,
-        pw1,
-        pw2,
-        username,
-        email,
         validation
 
     }
