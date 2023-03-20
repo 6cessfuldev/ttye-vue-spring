@@ -52,6 +52,7 @@ export default {
         id:id
       })
       .then(function(response){
+        alert(response.data);
         return response.data;
       })
       .catch(function(error){
@@ -96,7 +97,8 @@ export default {
     }
   
     return {
-        validation
+      alreadyId,
+      validation
 
     }
   }
