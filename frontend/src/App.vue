@@ -1,26 +1,34 @@
 <template>
   <div>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/calendar">Calendar</router-link> |
-      <router-link to="/letterbox">LetterBox</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <a class="bgm fw-bold" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" @mouseover="hoverBGM">BGM</a>
+    <div v-if="isMatched">
+      <NaviBar></NaviBar>
+      <a class="bgm fw-bold" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" @mouseover="hoverBGM">BGM</a>
+      <MyBgm @mouseleave="mouseleaveBGM"></MyBgm>
+    </div>
     <transition name="slide-fade">
-    <router-view :key="$route.fullPath"/>
+      <router-view :key="$route.fullPath"/>
     </transition>
-    <MyBgm @mouseleave="mouseleaveBGM"></MyBgm>
+    <BeforeMatch v-if="!isMatched"></BeforeMatch>
+    
   </div>
 </template>
 <script>
 import MyBgm from '@/components/MyBgm.vue'
+import NaviBar from '@/components/NaviBar.vue'
+import BeforeMatch from '@/components/BeforeMatch.vue';
+import { ref, onMounted } from 'vue';
+
+// import axios from 'axios';
 
 export default {
   components: {
-    MyBgm
+    MyBgm,
+    NaviBar,
+    BeforeMatch
   },
   setup() {
+
+    const isMatched = ref(false);
 
     const hoverBGM = () => {
       document.querySelector('.bgm').click();
@@ -29,8 +37,16 @@ export default {
     const mouseleaveBGM = () => {
       document.querySelector('.bgm').click();
     }
+    
+    onMounted(() => {
+      // axios.get("http://localhost:8080/user/isLoggedIn")
+      //   .then(function(response){
+      //       isLoggedIn = response.data;
+      //   }); 
+    })
 
     return {
+      isMatched,
       hoverBGM,
       mouseleaveBGM
       
@@ -79,21 +95,6 @@ nav {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  text-align: center;
-  padding: 30px;
-}
-
-nav a {
-  text-decoration: none;
-  font-weight: bold;
-  color: white;
-}
-
-nav a.router-link-exact-active {
-  color: #EDDBC7;
 }
 
 

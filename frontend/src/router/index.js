@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import IndexView from '../views/IndexView.vue'
+import RegisterView from '../views/RegisterView.vue'
 import DiaryView from '../views/DiaryView.vue'
 import CalendarView from '../views/CalendarView.vue'
 import DiaryListView from '../views/DiaryListView.vue'
@@ -11,6 +12,11 @@ const routes = [
     path: '/',
     name: 'index',
     component: IndexView
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterView
   },
   {
     path: '/diary',

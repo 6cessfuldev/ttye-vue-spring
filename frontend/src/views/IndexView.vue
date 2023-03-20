@@ -3,27 +3,13 @@
       <img src="../assets/images/index.jpg" alt="A cute couple image">
       <h1 class="title">안녕하쇼~</h1>
       <p class="description"></p>
-      <div class="button-container">
-      <button class="login-button btn" @click="showModal = true">Login</button>
-     </div>
-      <modal v-if="showModal" @close="showModal = false">
-      </modal>
     </div>
   </template>
 
 <script>
-    import Modal from '@/components/LoginModal.vue'
-
     export default {
         name : "IndexView",
-        components: {
-            Modal
-        },
-        data() {
-            return {
-                showModal: false,
-            }
-        },
+
     }
 </script>
 <style>
@@ -58,17 +44,4 @@ img {
   margin-top: 50px;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-  }
-
-  .login-button {
-    background-color: #A7727D;
-    color: #fff;
-    font-size: 1.2rem;
-} 
 </style>

@@ -28,6 +28,7 @@
     "jquery": "^3.6.3",
     "jquery-ui": "^1.13.2",
     "medium-editor": "^5.23.3",
+    "mitt": "^3.0.0",
     "pebble-css": "^0.1.23",
     "quill": "^1.3.6",
     "summernote": "^0.8.20",

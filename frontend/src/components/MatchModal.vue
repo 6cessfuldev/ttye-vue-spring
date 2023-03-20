@@ -3,7 +3,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <h3>Login</h3>
+            <h3>회원가입</h3>
             <button class="modal-close" @click="$emit('close')">X</button>
           </div>
           <div class="modal-body">
@@ -16,11 +16,8 @@
                 <label for="pw">Password:</label>
                 <input type="password" id="pw" class="form-control">
               </div>
-              <div class="button-container">
-                <button type="submit" class="btn">Login</button>
-              </div>
-              <a href="#" @click="$emit('register')">회원가입</a>
-                
+              <button type="submit" class="btn">Submit</button>
+              <a href></a>
               <div class="form-validation">
                 <span class="error-message">Invalid username or password</span>
               </div>
@@ -75,7 +72,6 @@
   
   .modal-body {
     margin-top: 20px;
-    position:relative;
   }
 
   .form-group {
@@ -101,19 +97,6 @@ label {
   border-color: #c29de3;
 }
 
-.button-container{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-body>form>a{
-  text-decoration: none;
-  position: absolute;
-  right: 10px;
-}
-
 .btn {
   background-color: #f49ac1;
   color: #fff;
@@ -122,7 +105,6 @@ label {
   border-radius: 20px;
   font-size: 1.2rem;
   transition: background-color 0.3s;
-  
 }
 
 .btn:hover {

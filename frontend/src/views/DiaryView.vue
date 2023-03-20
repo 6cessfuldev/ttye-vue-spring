@@ -22,6 +22,7 @@
       }" 
       v-model="editorContent"
     />
+    <br>
     <button @click="submitEditorContent">저장</button>
   </div>
 </div>
@@ -48,7 +49,6 @@ export default {
       //   .catch(error => {
       //     console.log(error);
       //   });
-      console.log(editorContent.value);
     }
 
     return {
