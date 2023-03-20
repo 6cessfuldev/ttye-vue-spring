@@ -81,7 +81,7 @@ export default {
       axios.post("http://localhost:8080/user/register", {
         id: id,
         pw: pw1,
-        username: username,
+        userName: username,
         email: email
       })
         .then(function(response){
