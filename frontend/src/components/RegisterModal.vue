@@ -71,7 +71,7 @@ export default {
       if(id.length < 5){
         alert("아이디가 짧아요~");
         return false;
-      }else if(alreadyId){
+      }else if(!alreadyId){
         alert("이미 동일한 아이디가 있어요~");
         return false;
       }else if(pw1!=pw2){
