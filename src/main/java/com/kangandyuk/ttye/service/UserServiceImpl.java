@@ -40,11 +40,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO isUser(String id, String pw) {
 		
+		System.out.println(">>> UserServiceImpl isUser");
 		UserVO user = udao.selectUserById(id);
+		System.out.println(id);
 		
 		if(user == null) {
 			return null;			
 		}
+		
+		System.out.println(user.toString());
+		System.out.println(pw);
+		System.out.println(user.getPw());
 		
 		if(passwordEncoder.matches(pw, user.getPw())) {
 			return user;

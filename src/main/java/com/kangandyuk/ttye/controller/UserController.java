@@ -22,6 +22,8 @@ public class UserController {
 	
 	@GetMapping("alreadyId")
 	public boolean alreadyIdGET(String id) {
+		
+		System.out.println(">>> controller already method");
 		System.out.println(id);
 		boolean alreadyId = usv.alreadyId(id);
 		System.out.println(alreadyId);
@@ -30,6 +32,8 @@ public class UserController {
 	
 	@PostMapping("register")
 	public boolean registerPOST(@RequestBody UserVO user) {
+		
+		System.out.println(">>> controller register method");
 		System.out.println(user.toString());
 		boolean register = usv.register(user);
 		
@@ -37,16 +41,17 @@ public class UserController {
 	}
 	
 	@PostMapping("login")
-	public boolean loginPOST(@RequestBody String id, String pw, HttpServletRequest req) {
+	public boolean loginPOST(@RequestBody UserVO user, HttpServletRequest req) {
 		
-		System.out.println(id);
-		System.out.println(pw);
+		System.out.println(">>> controller login method");
+		System.out.println("login id >>> " + user.getId());
+		System.out.println("login pw >>> " + user.getPw());
 		
-		UserVO user = usv.isUser(id, pw);
+		UserVO loginUser = usv.isUser(user.getId(), user.getPw());
 		
-		if(user != null) {
+		if(loginUser != null) {
 			HttpSession session = req.getSession();
-			session.setAttribute("user", user);
+			session.setAttribute("user", loginUser);
 			return true;
 			
 		} else {
