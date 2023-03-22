@@ -44,26 +44,6 @@ import axios from 'axios';
 export default {
   setup() {
 
-    function alreadyId(){
-
-      var id = document.getElementById('id').value;
-
-      axios.get("http://localhost:8080/user/alreadyId", {
-        params: {
-          id:id
-        }
-      })
-      .then(function(response){
-        alert(response.data);
-        return response.data;
-      })
-      .catch(function(error){
-        alert(error);
-        return false;
-      })
-        
-    }
-
     function validation(){
       
       var id = document.getElementById('id').value;
@@ -77,7 +57,16 @@ export default {
         return false;
       }
       
-      alreadyId().then(function(result){
+      axios.get("http://localhost:8080/user/alreadyId", {
+        params: {
+          id:id
+        }
+      })
+      .then(function(response){
+        alert(response.data);
+        return response.data;
+      })
+      .then(function(result){
         if(!result){
           alert("중복된 아이디입니다.");
           return false;
@@ -104,12 +93,13 @@ export default {
           this.$emit("submit");
         })
       })
+      .catch(function(error){
+        alert(error);
+        return false;
+      })
     }
-      
-      
   
     return {
-      alreadyId,
       validation
 
     }

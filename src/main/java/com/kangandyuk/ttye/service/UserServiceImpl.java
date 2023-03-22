@@ -17,8 +17,7 @@ public class UserServiceImpl implements UserService {
 	public boolean alreadyId(String id) {
 		
 		UserVO user = udao.selectAlreadyId(id);
-		System.out.println(user.getId());
-		if(user.getId() == null || user.getId() == "") {
+		if(user==null) {
 			return true;
 		}
 		return false;
