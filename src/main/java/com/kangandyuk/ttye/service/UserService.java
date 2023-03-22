@@ -8,4 +8,6 @@ public interface UserService {
 
 	boolean register(UserVO user);
 
+	UserVO isUser(String id, String pw);
+
 }

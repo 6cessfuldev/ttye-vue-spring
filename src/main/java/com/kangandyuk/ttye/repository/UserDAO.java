@@ -4,7 +4,7 @@ import com.kangandyuk.ttye.domain.UserVO;
 
 public interface UserDAO {
 
-	UserVO selectAlreadyId(String id);
+	UserVO selectUserById(String id);
 
 	boolean insertUser(UserVO user);
 
