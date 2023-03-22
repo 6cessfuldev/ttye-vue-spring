@@ -75,11 +75,18 @@ export default {
       if(id.length < 5){
         alert("아이디가 짧아요~");
         return false;
-      }else if(!alreadyId){
-        alert("이미 동일한 아이디가 있어요~");
-        return false;
-      }else if(pw1!=pw2){
+      }
+      
+      alreadyId().then(function(alreadyExist){
+        if(alreadyExist){
+          alert("중복된 아이디입니다.");
+          return false;
+        }
+      })
+      
+      if(pw1!=pw2){
         alert("동일한 비번을 입력해줘요~");
+        return false;
       }
 
       axios.post("http://localhost:8080/user/register", {
