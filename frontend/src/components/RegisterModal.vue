@@ -77,34 +77,36 @@ export default {
         return false;
       }
       
-      alreadyId().then(function(alreadyExist){
-        if(alreadyExist){
+      alreadyId().then(function(result){
+        if(!result){
           alert("중복된 아이디입니다.");
           return false;
         }
-      })
-      
-      if(pw1!=pw2){
-        alert("동일한 비번을 입력해줘요~");
-        return false;
-      }
 
-      axios.post("http://localhost:8080/user/register", {
-        id: id,
-        pw: pw1,
-        userName: username,
-        email: email
-      })
+        if(pw1!=pw2){
+          alert("동일한 비번을 입력해줘요~");
+          return false;
+        }
+
+        axios.post("http://localhost:8080/user/register", {
+          id: id,
+          pw: pw1,
+          userName: username,
+          email: email
+        })
         .then(function(response){
           if(response.data){
             alert("회원가입 되었습니다.");
           }else{
             alert("회원가입 에러!!!");
           }
-        })
 
-      this.$emit("submit");
+          this.$emit("submit");
+        })
+      })
     }
+      
+      
   
     return {
       alreadyId,
