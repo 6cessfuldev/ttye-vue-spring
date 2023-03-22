@@ -49,7 +49,9 @@ export default {
       var id = document.getElementById('id').value;
 
       axios.get("http://localhost:8080/user/alreadyId", {
-        id:id
+        params: {
+          id:id
+        }
       })
       .then(function(response){
         alert(response.data);
@@ -63,6 +65,7 @@ export default {
     }
 
     function validation(){
+      
       var id = document.getElementById('id').value;
       var pw1 = document.getElementById('pw1').value;
       var pw2 = document.getElementById('pw2').value;
