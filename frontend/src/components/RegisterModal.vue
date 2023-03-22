@@ -14,11 +14,11 @@
               </div>
               <div class="form-group">
                 <label for="pw">Password:</label>
-                <input type="text" id="pw1" class="form-control">
+                <input type="password" id="pw1" class="form-control">
               </div>
               <div class="form-group">
                 <label for="pw2">Password check:</label>
-                <input type="text" id="pw2" class="form-control">
+                <input type="password" id="pw2" class="form-control">
               </div>
               <div class="form-group">
                 <label for="username">Username:</label>

@@ -17,7 +17,7 @@
                 <input type="password" id="pw" class="form-control">
               </div>
               <div class="button-container">
-                <button type="submit" class="btn">Login</button>
+                <button class="btn" @click="login">Login</button>
               </div>
               <a href="#" @click="$emit('register')">회원가입</a>
                 
@@ -43,7 +43,7 @@ export default {
       var pw = document.getElementById('pw').value;
 
       alert("login");
-      axios.get("http://localhost:8080/user/login", {
+      axios.post("http://localhost:8080/user/login", {
         id : id,
         pw : pw
       })
