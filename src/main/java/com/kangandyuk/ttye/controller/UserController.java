@@ -42,22 +42,35 @@ public class UserController {
 		System.out.println(id);
 		System.out.println(pw);
 		
-		UserVO isUser = usv.isUser(id, pw);
+		UserVO user = usv.isUser(id, pw);
 		
-		if(isUser != null) {
+		if(user != null) {
 			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
 			return true;
 			
 		} else {
 			return false;
 		}
 		
-		
 	}
 	
 	@GetMapping("isLoggedIn")
-	public boolean isLoggedInGET() {
-		return true;
+	public boolean isLoggedInGET(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		if(session.getAttribute("user") == null) {
+			return false;
+		}
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(user != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
