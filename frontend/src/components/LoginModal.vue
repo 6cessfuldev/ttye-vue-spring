@@ -35,9 +35,11 @@ import axios from 'axios';
 import $ from 'jquery';
 
 export default {
-  setup() {
+  setup(props, context) {
 
     function login(){
+
+      console.log(props);
 
       var id = document.getElementById("id").value;
       var pw = document.getElementById('pw').value;
@@ -52,7 +54,7 @@ export default {
           $(".error-message").show();
           return false;
         }
-        this.$emit("login");
+        context.emit("login");
         return true;
 
       })

@@ -17,6 +17,7 @@ import MyBgm from '@/components/MyBgm.vue'
 import NaviBar from '@/components/NaviBar.vue'
 import BeforeMatch from '@/components/BeforeMatch.vue';
 import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 // import axios from 'axios';
 
@@ -39,10 +40,10 @@ export default {
     }
     
     onMounted(() => {
-      // axios.get("http://localhost:8080/user/isLoggedIn")
-      //   .then(function(response){
-      //       isLoggedIn = response.data;
-      //   }); 
+      axios.get("http://localhost:8080/user/isMatched")
+        .then(function(response){
+            isMatched.value = response.data;
+        }); 
     })
 
     return {
