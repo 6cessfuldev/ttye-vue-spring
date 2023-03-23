@@ -13,5 +13,6 @@ public class UserVO {
 	private String pw;
 	private String userName;
 	private String email;
+	private char isMatched;
 	
 }
