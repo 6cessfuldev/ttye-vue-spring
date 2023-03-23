@@ -57,17 +57,13 @@ export default {
         return false;
       }
       
-      axios.get("http://localhost:8080/user/alreadyId", {
+      axios.get("http://localhost:8080/user/isExistedId", {
         params: {
           id:id
         }
       })
       .then(function(response){
-        alert(response.data);
-        return response.data;
-      })
-      .then(function(result){
-        if(!result){
+        if(response.data){
           alert("중복된 아이디입니다.");
           return false;
         }

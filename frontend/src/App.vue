@@ -8,7 +8,7 @@
     <transition name="slide-fade">
       <router-view :key="$route.fullPath"/>
     </transition>
-    <BeforeMatch v-if="!isMatched"></BeforeMatch>
+    <BeforeMatch v-if="!isMatched" @matching="isMatched = true"></BeforeMatch>
     
   </div>
 </template>

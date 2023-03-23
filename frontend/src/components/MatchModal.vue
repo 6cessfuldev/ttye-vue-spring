@@ -3,7 +3,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <h3>회원가입</h3>
+            <h3>짝꿍 찾기</h3>
             <button class="modal-close" @click="$emit('close')">X</button>
           </div>
           <div class="modal-body">
@@ -12,13 +12,10 @@
                 <label for="id">ID:</label>
                 <input type="text" id="id" class="form-control">
               </div>
-              <div class="form-group">
-                <label for="pw">Password:</label>
-                <input type="password" id="pw" class="form-control">
-              </div>
-              <button type="submit" class="btn">Submit</button>
+              <button type="submit" class="btn" @click="match">Match</button>
               <div class="form-validation">
-                <span class="error-message">Invalid username or password</span>
+                <span class="error-message not-exist">찾는 짝이 없어요..!</span>
+                <span class="error-message already-partner">이미 짝꿍이 있는 사람이에요..</span>
               </div>
             </form>
           </div>
@@ -27,6 +24,71 @@
     </div>
   </template>
   
+  <script>
+import axios from 'axios';
+import $ from 'jquery';
+
+export default {
+  setup(props, context) {
+
+    function resetError(){
+      $("error-message").hide();
+    }
+
+    function match(){
+
+      console.log(props);
+
+      var id = document.getElementById("id").value;
+
+      axios.get("http://localhost:8080/user/checkPartner", {
+        params: {
+          id : id
+        }
+      })
+      .then(function(response){
+        if(response.data==1){
+          resetError();
+          $(".not-exist").show();
+          return false;  
+        }
+        if(response.data==2){
+          resetError();
+          $(".already-partner").show();
+          return false;
+        }
+        
+        if(response.data==3){
+          axios.post("http://localhost:8080/user/matching", {
+            params: {
+              id: id
+            }
+          })
+          .then(function(response){
+            if(response.data){
+              alert("매칭 신청 완료했습니다.");
+              context.emit("matching");
+              return true;
+            }
+          })
+        }
+        return false;
+      })
+      .catch(function(error){
+        alert(error);
+      })
+
+    }
+
+    return {
+      match,
+      resetError
+    }
+
+  }
+}
+</script>
+
   <style scoped>
   .modal-mask {
     position: fixed;
