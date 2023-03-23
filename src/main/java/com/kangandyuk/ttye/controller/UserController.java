@@ -78,4 +78,22 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping("isMatched")
+	public boolean isMatchedGET(HttpServletRequest req) {
+		
+		if(!isLoggedInGET(req)) {
+			return false;
+		}
+		
+		HttpSession session = req.getSession();
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(user.getIsMatched() != 'N') {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 }
