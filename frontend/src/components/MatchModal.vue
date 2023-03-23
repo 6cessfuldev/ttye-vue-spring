@@ -58,7 +58,24 @@ export default {
           return false;
         }
         
+        //신청 후 대기 상태
         if(response.data==3){
+          axios.post("http://localhost:8080/user/waiting", {
+            params: {
+              id: id
+            }
+          })
+          .then(function(response){
+            if(response.data){
+              alert("매칭 신청했습니다.");
+              context.emit("matching");
+              return true;
+            }
+          })
+        }
+
+        //이미 나를 신청한 사람에게 신청한 경우
+        if(response.data==4){
           axios.post("http://localhost:8080/user/matching", {
             params: {
               id: id
@@ -66,7 +83,7 @@ export default {
           })
           .then(function(response){
             if(response.data){
-              alert("매칭 신청 완료했습니다.");
+              alert("매칭 완료했습니다.");
               context.emit("matching");
               return true;
             }
