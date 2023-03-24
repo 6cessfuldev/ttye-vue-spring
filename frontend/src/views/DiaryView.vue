@@ -1,5 +1,6 @@
 <template>
   <div class="index-page">
+    <h1>{{ diary_date }}</h1>
   <div id="diary">
     <editor
       api-key="no-api-key"
@@ -17,7 +18,6 @@
           ' link image media | save | ',
             
           menubar: false,
-          content_css: 'css/content.css',
           
       }" 
       v-model="editorContent"
@@ -30,8 +30,8 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue'
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
 export default {
@@ -40,30 +40,36 @@ export default {
     'editor': Editor
   },
   setup() {
-    const editorContent = ref('');
-    const router = useRouter();
+    const editorContent = ref('')
+    const router = useRouter()
+    const route = useRoute()
+    const diary_date = ref('')
 
     function submitEditorContent() {
       axios.post('/diary/register', { 
         content: editorContent.value,
-        diary_date: this.$route.params.diary_date
+        diary_date: route.query.diary_date
       })
-        .then(response => {
-          if(response.data){
-            router.replace("/calendar");
-          }else{
-            alert("서버 에러");
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      .then(response => {
+        if(response.data){
+          router.replace("/calendar");
+        }else{
+          alert("서버 에러");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
+
+    onMounted(() => {
+      diary_date.value = route.query.diary_date;
+    })
 
     return {
       editorContent,
       submitEditorContent,
-  
+      diary_date
     }
   }
 }
@@ -72,7 +78,7 @@ export default {
 <style scoped>
 
 #diary{
-  margin-top:100px;
+  margin-top:50px;
   display:flex;
   align-items: center;
   justify-content: center;  

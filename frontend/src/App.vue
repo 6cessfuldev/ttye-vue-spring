@@ -61,16 +61,16 @@ export default {
       axios.get("http://localhost:8080/user/isLoggedIn")
       .then(function(response){
         isLoggedIn.value=response.data;
-      })
-
+      });
       axios.get("http://localhost:8080/user/isMatched")
       .then(function(response){
-          isMatched.value = response.data;
+        isMatched.value = response.data;
       }); 
     })
 
     return {
       isMatched,
+      isLoggedIn,
       hoverBGM,
       mouseleaveBGM,
       logout

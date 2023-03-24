@@ -13,7 +13,7 @@
 </script>
 <style>
 .index-page {
-  padding-top: 30px;
+  padding-top: 50px;
   background-color: #EDDBC7;
   text-align: center;
   padding-bottom: 100px;

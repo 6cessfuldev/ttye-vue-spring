@@ -52,7 +52,7 @@ export default {
           $(".error-message").show();
           return false;
         }
-        location.reload();
+        window.location.href = "/";
         return true;
 
       })
