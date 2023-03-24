@@ -8,7 +8,7 @@
         <router-link to="/letterbox">LetterBox</router-link> |
         <router-link to="/about">About</router-link>
       </nav>  
-      <a class="logout"> 로그아웃 </a>
+      <a class="logout" @click="logout"> 로그아웃 </a>
       <MyBgm @mouseleave="mouseleaveBGM"></MyBgm>
     </div>
     <transition name="slide-fade">
