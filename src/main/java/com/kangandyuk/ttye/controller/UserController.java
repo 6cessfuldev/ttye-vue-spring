@@ -1,5 +1,7 @@
 package com.kangandyuk.ttye.controller;
 
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kangandyuk.ttye.domain.UserVO;
@@ -87,7 +90,7 @@ public class UserController {
 		
 		HttpSession session = req.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
-		
+		System.out.println(user.toString());
 		if(user.getStatus() == 3) {
 			return true;
 		} else {
@@ -97,25 +100,26 @@ public class UserController {
 	}
 	
 	@GetMapping("checkPartner")
-	public int checkPartnerGET(String id, HttpSession session) {
-		
+	public int checkPartnerGET(@RequestParam(name="id") String id, HttpSession session) {
+		System.out.println(id);
 		int check = usv.checkPartner(id, session);
 
 		return check;
 	}
 	
 	@PostMapping("waiting")
-	public boolean waitngPOST(@RequestBody String id, HttpSession session) {
-		
-		boolean waiting = usv.waiting(id, session);
+	public boolean waitngPOST(@RequestBody UserVO user, HttpSession session) {
+		System.out.println("waiting");
+		System.out.println(user.getId());
+		boolean waiting = usv.waiting(user.getId(), session);
 		
 		return waiting;
 	}
 	
 	@PostMapping("matching")
-	public boolean matchingPOST(@RequestBody String id, HttpSession session) {
-		
-		boolean matching = usv.matching(id, session);
+	public boolean matchingPOST(@RequestBody UserVO user, HttpSession session) {
+		System.out.println("matching :"+user.getId());
+		boolean matching = usv.matching(user.getId(), session);
 		
 		return matching;
 	}

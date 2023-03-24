@@ -32,7 +32,7 @@ export default {
   setup(props, context) {
 
     function resetError(){
-      $("error-message").hide();
+      $(".error-message").hide();
     }
 
     function match(){
@@ -42,10 +42,11 @@ export default {
       var id = document.getElementById("id").value;
 
       axios.get("http://localhost:8080/user/checkPartner", {
-        params: {
-          id : id
+          params: {
+            id: id
+          }
         }
-      })
+      )
       .then(function(response){
         if(response.data==1){
           resetError();
@@ -61,9 +62,7 @@ export default {
         //신청 후 대기 상태
         if(response.data==3){
           axios.post("http://localhost:8080/user/waiting", {
-            params: {
-              id: id
-            }
+            id: id
           })
           .then(function(response){
             if(response.data){
@@ -77,9 +76,8 @@ export default {
         //이미 나를 신청한 사람에게 신청한 경우
         if(response.data==4){
           axios.post("http://localhost:8080/user/matching", {
-            params: {
-              id: id
-            }
+            id: id
+          
           })
           .then(function(response){
             if(response.data){

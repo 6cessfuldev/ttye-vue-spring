@@ -1,5 +1,5 @@
 <template>
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">추억의 노래 BGM</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -11,13 +11,17 @@
         <div>
           <div class="bgm-list">
             <table border="1">
+              <colgroup>
+                <col style="width:60%">
+                <col style="width:30%">
+              </colgroup>
               <tr>
-                <th style="width: 100px;">제목</th>
+                <th>제목</th>
                 <th>날짜</th>
               </tr>
               
               <tr v-for="bgm, index in bgmList" :key="index">
-                <td>{{ bgm.video_title.length > 15 ? bgm.video_title.substring(0, 15) + '...' : bgm.video_title }}</td>
+                <td>{{ bgm.video_title.length > 15 ? bgm.video_title.substring(0, 13) + '...' : bgm.video_title }}</td>
                 <td>{{ bgm.reg_date.slice(0, 10) }}</td>
               </tr>
 
@@ -114,9 +118,6 @@ export default {
 }
 table {
   width : 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .bgm-list{
   display: flex;

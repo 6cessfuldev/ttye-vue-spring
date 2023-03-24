@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div v-if="isMatched">
-      <NaviBar></NaviBar>
+    <div class="header" v-if="isMatched"> 
       <a class="bgm fw-bold" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" @mouseover="hoverBGM">BGM</a>
+      <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/calendar">Calendar</router-link> |
+        <router-link to="/letterbox">LetterBox</router-link> |
+        <router-link to="/about">About</router-link>
+      </nav>  
+      <a class="logout"> 로그아웃 </a>
       <MyBgm @mouseleave="mouseleaveBGM"></MyBgm>
     </div>
     <transition name="slide-fade">
@@ -14,7 +20,6 @@
 </template>
 <script>
 import MyBgm from '@/components/MyBgm.vue'
-import NaviBar from '@/components/NaviBar.vue'
 import BeforeMatch from '@/components/BeforeMatch.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -24,7 +29,6 @@ import axios from 'axios';
 export default {
   components: {
     MyBgm,
-    NaviBar,
     BeforeMatch
   },
   setup() {
@@ -38,6 +42,18 @@ export default {
     const mouseleaveBGM = () => {
       document.querySelector('.bgm').click();
     }
+
+    function logout () {
+      axios.get("http://localhost:8080/user/logout")
+      .then(function(response){
+        if(response.data){
+          alert("로그아웃!");
+          window.location.href = "/";
+        } else{
+          alert("서버 에러");
+        }
+      })
+    }
     
     onMounted(() => {
       axios.get("http://localhost:8080/user/isMatched")
@@ -49,8 +65,8 @@ export default {
     return {
       isMatched,
       hoverBGM,
-      mouseleaveBGM
-      
+      mouseleaveBGM,
+      logout
     }
   }
 }
@@ -63,6 +79,7 @@ html {
 nav {
  background-color: #A7727D; 
 }
+
 .background {
   background-color: #EDDBC7;
   text-align: center;
@@ -71,6 +88,25 @@ nav {
 }
 </style>
 <style scoped>
+
+.header{
+  position:relative;
+}
+
+nav {
+  text-align: center;
+  padding: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+}
+
+nav a.router-link-exact-active {
+  color: #EDDBC7;
+}
 .bgm {
   text-align: center;
   height: 50px;
@@ -78,16 +114,27 @@ nav {
   line-height: 50px;
   border-radius: 10px;
   background-color: #EDDBC7;
+  position: absolute;
   color: #A7727D;
-  position: fixed;
+  left: 30px;
+  top: 20px;
+  text-decoration: none;
+  float: left;
+}
+
+.logout{
+  text-align: center;
+  height: 50px;
+  width: 70px;
+  line-height: 50px;
+  border-radius: 10px;
+  background-color: #EDDBC7;
+  position: absolute;
+  color: #A7727D;
   right: 30px;
   top: 20px;
   text-decoration: none;
   float: right;
-}
-
-.bgm:focus {
-  outline: none;
 }
 
 #app {

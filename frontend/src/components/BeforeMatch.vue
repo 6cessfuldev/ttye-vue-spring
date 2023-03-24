@@ -4,7 +4,7 @@
       <button v-if="!isLoggedIn" class="login-button btn" @click="loginModal = true">Login</button>
       <button v-else class="match-button btn" @click="matchModal = true">Match</button>
      </div>
-      <LoginModal v-if="loginModal" @login="isLoggedIn=true; loginModal=false;" @close="loginModal = false" @register="loginModal = false; registerModal = true;"></LoginModal>
+      <LoginModal v-if="loginModal" @close="loginModal = false" @register="loginModal = false; registerModal = true;"></LoginModal>
       <MatchModal v-if="matchModal" @close="matchModal = false" @matching="matchModal=false; $emit('matching')"></MatchModal>
       <RegisterModal v-if="registerModal" @submit="registerModal =false" @close="registerModal = false"></RegisterModal>
     </div>
