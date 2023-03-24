@@ -33,9 +33,12 @@
 <script>
 import axios from 'axios';
 import $ from 'jquery';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
+
+    const router = useRouter()
 
     function login(){
 
@@ -52,7 +55,7 @@ export default {
           $(".error-message").show();
           return false;
         }
-        window.location.href = "/";
+        router.replace("/");
         return true;
 
       })
