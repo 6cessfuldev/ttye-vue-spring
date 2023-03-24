@@ -13,7 +13,7 @@
           </div>
           <div class="modal-body" >
             <p v-for="content, index in clickedDateContent" v-bind:key="index" v-bind:style="{color: content.textColor, backgroundColor : content.color}">{{ content.title }}{{ content.color }}</p>
-            <router-link to="/diary">Write diary</router-link>
+            <a @click="write" href="#">Write diary</a>
           </div>
         </div>
       </div>
@@ -28,6 +28,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import $ from 'jquery'
 import '@fortawesome/fontawesome-free/css/all.css';
+import { useRouter } from 'vue-router';
 
 
 export default {
@@ -38,6 +39,12 @@ export default {
     const clickedDateContent = ref(null);
 
     const modalOpen = ref(false);
+
+    const router = useRouter();
+
+    function write() {
+      router.push({name: 'diary', params: {diary_date: clickedDate}})
+    }
 
     const eventSources = ref([
       {
@@ -161,6 +168,7 @@ export default {
       showModal,
       hideModal,
       closeModal,
+      write
     }
   },
   watch : {

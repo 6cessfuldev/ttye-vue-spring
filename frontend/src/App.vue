@@ -8,7 +8,7 @@
         <router-link to="/letterbox">LetterBox</router-link> |
         <router-link to="/about">About</router-link>
       </nav>  
-      <a class="logout" @click="logout"> 로그아웃 </a>
+      <a class="logout" @click="logout" v-if="isLoggedIn"> 로그아웃 </a>
       <MyBgm @mouseleave="mouseleaveBGM"></MyBgm>
     </div>
     <transition name="slide-fade">
@@ -33,6 +33,7 @@ export default {
   },
   setup() {
 
+    const isLoggedIn = ref(false);
     const isMatched = ref(false);
 
     const hoverBGM = () => {
@@ -56,10 +57,16 @@ export default {
     }
     
     onMounted(() => {
+
+      axios.get("http://localhost:8080/user/isLoggedIn")
+      .then(function(response){
+        isLoggedIn.value=response.data;
+      })
+
       axios.get("http://localhost:8080/user/isMatched")
-        .then(function(response){
-            isMatched.value = response.data;
-        }); 
+      .then(function(response){
+          isMatched.value = response.data;
+      }); 
     })
 
     return {

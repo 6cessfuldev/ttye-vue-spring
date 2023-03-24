@@ -44,7 +44,10 @@ export default {
     const router = useRouter();
 
     function submitEditorContent() {
-      axios.post('/diary/register', { content: editorContent.value })
+      axios.post('/diary/register', { 
+        content: editorContent.value,
+        diary_date: this.$route.params.diary_date
+      })
         .then(response => {
           if(response.data){
             router.replace("/calendar");
