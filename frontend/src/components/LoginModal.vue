@@ -51,13 +51,11 @@ export default {
         pw : pw
       })
       .then(function(response){
-        if(!response.data){
+        if(response.data){
+          router.replace("/");
+        }else{
           $(".error-message").show();
-          return false;
         }
-        router.replace("/");
-        return true;
-
       })
       .catch(function(error){
         alert(error);
