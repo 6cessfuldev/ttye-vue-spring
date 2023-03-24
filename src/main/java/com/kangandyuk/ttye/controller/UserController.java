@@ -20,14 +20,14 @@ public class UserController {
 	@Inject
 	private UserService usv;
 	
-	@GetMapping("alreadyId")
+	@GetMapping("isExistedId")
 	public boolean alreadyIdGET(String id) {
 		
 		System.out.println(">>> controller already method");
 		System.out.println(id);
-		boolean alreadyId = usv.alreadyId(id);
-		System.out.println(alreadyId);
-		return alreadyId;
+		boolean isExistedId = usv.isExistedId(id);
+		System.out.println(isExistedId);
+		return isExistedId;
 	}
 	
 	@PostMapping("register")
@@ -88,7 +88,7 @@ public class UserController {
 		HttpSession session = req.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		
-		if(user.getIsMatched() != 'N') {
+		if(user.getStatus() == 3) {
 			return true;
 		} else {
 			return false;
@@ -96,4 +96,27 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("checkPartner")
+	public int checkPartnerGET(String id, HttpSession session) {
+		
+		int check = usv.checkPartner(id, session);
+
+		return check;
+	}
+	
+	@PostMapping("waiting")
+	public boolean waitngPOST(@RequestBody String id, HttpSession session) {
+		
+		boolean waiting = usv.waiting(id, session);
+		
+		return waiting;
+	}
+	
+	@PostMapping("matching")
+	public boolean matchingPOST(@RequestBody String id, HttpSession session) {
+		
+		boolean matching = usv.matching(id, session);
+		
+		return matching;
+	}
 }

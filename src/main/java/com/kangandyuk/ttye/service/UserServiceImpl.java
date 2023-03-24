@@ -1,6 +1,7 @@
 package com.kangandyuk.ttye.service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,14 +18,14 @@ public class UserServiceImpl implements UserService {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-	public boolean alreadyId(String id) {
+	public boolean isExistedId(String id) {
 		
 		UserVO user = udao.selectUserById(id);
 		
 		if(user == null) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	@Override
@@ -57,6 +58,55 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public int checkPartner(String id, HttpSession session) {
+		
+		UserVO partner = udao.selectUserById(id);
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		if(partner == null) {
+			return 1;
+		} else if((partner.getStatus() == 2 || partner.getStatus() == 3) && !partner.getPartner().equals(user.getId())) {
+			return 2;
+		} else if(partner.getStatus() == 1 && partner.getPartner() == null) {
+			return 3;
+		} else if(partner.getStatus() == 2 && partner.getPartner().equals(user.getId())) {
+			return 4;
+		} else {
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public boolean waiting(String id, HttpSession session) {
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		user.setStatus(2);
+		user.setPartner(id);
+		
+		int isOk = udao.updateUserStatus(user);
+		
+		return isOk > 0 ? true : false ;
+	}
+
+	@Override
+	public boolean matching(String id, HttpSession session) {
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		UserVO partner = udao.selectUserById(id);
+		
+		user.setStatus(3);
+		user.setPartner(id);
+		partner.setStatus(3);
+		
+		int isOk = udao.updateUserStatus(user);
+		int isOk2 = udao.updateUserStatus(partner);
+		
+		return isOk * isOk2 > 0 ? true : false ;
 	}
 
 }

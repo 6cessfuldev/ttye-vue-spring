@@ -13,6 +13,7 @@ public class UserVO {
 	private String pw;
 	private String userName;
 	private String email;
-	private char isMatched;
+	private int status;
+	private String partner;
 	
 }

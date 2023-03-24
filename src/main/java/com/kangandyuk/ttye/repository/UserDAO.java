@@ -8,4 +8,6 @@ public interface UserDAO {
 
 	boolean insertUser(UserVO user);
 
+	int updateUserStatus(UserVO user);
+
 }
