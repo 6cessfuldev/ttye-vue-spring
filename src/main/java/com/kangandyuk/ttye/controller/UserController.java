@@ -1,7 +1,5 @@
 package com.kangandyuk.ttye.controller;
 
-import java.util.Set;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -74,11 +72,7 @@ public class UserController {
 		
 		UserVO user = (UserVO)session.getAttribute("user");
 		
-		if(user != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return user != null ? true : false ;
 	}
 	
 	@GetMapping("isMatched")
@@ -91,11 +85,8 @@ public class UserController {
 		HttpSession session = req.getSession();
 		UserVO user = (UserVO)session.getAttribute("user");
 		System.out.println(user.toString());
-		if(user.getStatus() == 3) {
-			return true;
-		} else {
-			return false;
-		}
+		
+		return user.getStatus() == 3 ? true : false ;
 		
 	}
 	
@@ -122,5 +113,17 @@ public class UserController {
 		boolean matching = usv.matching(user.getId(), session);
 		
 		return matching;
+	}
+	
+	@GetMapping("logout")
+	public boolean logoutGET(HttpSession session) {
+		
+		System.out.println("logout");
+		
+		session.removeAttribute("user");
+		session.invalidate();
+		
+		return true;
+		
 	}
 }
