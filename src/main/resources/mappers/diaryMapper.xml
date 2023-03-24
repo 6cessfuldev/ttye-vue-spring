@@ -5,8 +5,7 @@
 <mapper namespace="com.kangandyuk.ttye.repository.DiaryDAO">
 
 	<insert id="insertDiary">
-		insert into tbl_diary(content, id) values(#{content}, #{id})
+		insert into tbl_diary(content, diary_date, id) values(#{content}, #{diary_date}, #{id})
 	</insert>
-
 
 </mapper>

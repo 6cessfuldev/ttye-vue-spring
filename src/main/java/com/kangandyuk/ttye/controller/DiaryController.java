@@ -26,6 +26,7 @@ public class DiaryController {
 		UserVO user = (UserVO)session.getAttribute("user");
 		
 		newDiary.setContent(diary.getContent());
+		newDiary.setDiary_date(diary.getDiary_date());
 		newDiary.setId(user.getId());
 		
 		boolean register = dsv.register(newDiary);
