@@ -1,8 +1,7 @@
 <template>
     <div class="index-page">
       <img src="../assets/images/index.jpg" alt="A cute couple image">
-      <h1 class="title">안녕하쇼~</h1>
-      <p class="description"></p>
+      <h2 class="title">안녕</h2>
     </div>
   </template>
 
@@ -14,9 +13,10 @@
 </script>
 <style>
 .index-page {
+  padding-top: 30px;
   background-color: #EDDBC7;
   text-align: center;
-  padding: 20px;
+  padding-bottom: 100px;
 }
 
 </style>
@@ -25,15 +25,11 @@
 
 
 .title {
+  margin-top: 10px;
   font-family: 'Dancing Script', cursive;
-  font-size: 3rem;
-  margin-top: 30px;
+  font-size: 2rem;
 }
 
-.description {
-  font-size: 1.5rem;
-  margin-top: 20px;
-}
 
 img {
   border: 5px solid #fff;

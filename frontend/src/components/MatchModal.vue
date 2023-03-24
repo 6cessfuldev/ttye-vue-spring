@@ -27,9 +27,12 @@
   <script>
 import axios from 'axios';
 import $ from 'jquery';
+import {useRouter } from 'vue-router';
 
 export default {
   setup(props, context) {
+
+    const router = useRouter();
 
     function resetError(){
       $(".error-message").hide();
@@ -82,7 +85,7 @@ export default {
           .then(function(response){
             if(response.data){
               alert("매칭 완료했습니다.");
-              context.emit("matching");
+              router.replace("/");
               return true;
             }
           })

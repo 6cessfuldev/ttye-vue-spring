@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="header" v-if="isMatched"> 
+    <div class="header"> 
       <a class="bgm fw-bold" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" @mouseover="hoverBGM">BGM</a>
-      <nav>
+      <nav v-if="isMatched">
         <router-link to="/">Home</router-link> |
         <router-link to="/calendar">Calendar</router-link> |
         <router-link to="/letterbox">LetterBox</router-link> |
@@ -72,8 +72,8 @@ export default {
 }
 </script>
 <style>
-html {
-  background-color: #F9F5E7;
+html, body {
+  background-color: #EDDBC7;
 }
 
 nav {
@@ -135,6 +135,10 @@ nav a.router-link-exact-active {
   top: 20px;
   text-decoration: none;
   float: right;
+}
+
+.logout:hover{
+  cursor: pointer;
 }
 
 #app {
