@@ -1,9 +1,13 @@
 package com.kangandyuk.ttye.repository;
 
+import java.util.List;
+
 import com.kangandyuk.ttye.domain.DiaryVO;
 
 public interface DiaryDAO {
 
-	boolean insertDiary(DiaryVO newDiary);
+	int insertDiary(DiaryVO newDiary);
+
+	List<DiaryVO> selectList(String diary_date);
 
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 public class DiaryVO {
 	
 	private int diary_code;
+	private String diary_title;
 	private String content;
 	private String id;
 	private String diary_date;

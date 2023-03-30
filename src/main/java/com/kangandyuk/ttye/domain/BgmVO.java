@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class BgmVO {
 
-	private String Video_id;
-	private String Video_title;
-	private String reg_date;
+	private String id;
+	private String video_id;
+	private String video_title;
+	private String bgm_register_date;
 	
 }

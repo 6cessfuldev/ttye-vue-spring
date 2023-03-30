@@ -1,5 +1,7 @@
 package com.kangandyuk.ttye.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +16,12 @@ public class DiaryServiceImpl implements DiaryService {
 	private DiaryDAO ddao;
 
 	@Override
-	public boolean register(DiaryVO newDiary) {
+	public int register(DiaryVO newDiary) {
 		return ddao.insertDiary(newDiary);
+	}
+
+	@Override
+	public List<DiaryVO> list(String month) {
+		return ddao.selectList(month);
 	}
 }

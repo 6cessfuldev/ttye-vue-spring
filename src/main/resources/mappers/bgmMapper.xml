@@ -5,11 +5,12 @@
 <mapper namespace="com.kangandyuk.ttye.repository.BgmDAO">
 
 <insert id="insert">
-	insert into tbl_bgm(video_id, video_title) values(#{video_id}, #{video_title})
+	insert into tbl_bgm(id, video_id, video_title, bgm_register_date) 
+	values(#{id}, #{video_id}, #{video_title}, now())
 </insert>
 
 <select id="selectList" resultType="com.kangandyuk.ttye.domain.BgmVO">
-	select * from tbl_bgm
+	select * from tbl_bgm where id = #{id}
 </select>
 
 </mapper>

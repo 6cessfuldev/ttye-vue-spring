@@ -8,6 +8,5 @@ public interface BgmService {
 
 	int register(BgmVO bgm);
 
-	List<BgmVO> getList();
-
+	List<BgmVO> getList(String id);
 }

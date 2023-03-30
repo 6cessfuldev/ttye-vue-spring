@@ -8,6 +8,6 @@ public interface BgmDAO {
 
 	int insert(BgmVO bgm);
 
-	List<BgmVO> selectList();
+	List<BgmVO> selectList(String id);
 
 }

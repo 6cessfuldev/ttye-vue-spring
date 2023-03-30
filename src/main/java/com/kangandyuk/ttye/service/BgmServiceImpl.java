@@ -22,8 +22,8 @@ public class BgmServiceImpl implements BgmService {
 	}
 
 	@Override
-	public List<BgmVO> getList() {
-		return bdao.selectList();
+	public List<BgmVO> getList(String id) {
+		return bdao.selectList(id);
 	}
 	
 	

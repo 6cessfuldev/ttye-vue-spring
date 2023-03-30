@@ -1,11 +1,15 @@
 package com.kangandyuk.ttye.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kangandyuk.ttye.domain.DiaryVO;
@@ -25,12 +29,21 @@ public class DiaryController {
 		DiaryVO newDiary = new DiaryVO();
 		UserVO user = (UserVO)session.getAttribute("user");
 		
+		newDiary.setContent(diary.getDiary_title());
 		newDiary.setContent(diary.getContent());
 		newDiary.setDiary_date(diary.getDiary_date());
 		newDiary.setId(user.getId());
 		
-		boolean register = dsv.register(newDiary);
+		int register = dsv.register(newDiary);
 		
-		return register;	
+		return register > 0 ? true : false ;	
+	}
+	
+	@GetMapping("list")
+	public List<DiaryVO> listGET(@RequestParam(name="month") String month) {
+		
+		List<DiaryVO> diaryList = dsv.list(month);
+		
+		return diaryList;
 	}
 }
