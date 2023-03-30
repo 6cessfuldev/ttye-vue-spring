@@ -4,18 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kangandyuk.ttye.repository.BgmDAO">
 
-<insert id="insert">
-	insert into tbl_bgm(id, video_id, video_title) 
-	values(#{id}, #{video_id}, #{video_title})
-</insert>
+	<insert id="insert">
+		insert into tbl_bgm(id, video_id, video_title) 
+		values(#{id}, #{video_id}, #{video_title})
+	</insert>
+	
+	<select id="selectList" resultType="com.kangandyuk.ttye.domain.BgmVO">
+		select * from tbl_bgm where id = #{id}
+	</select>
+	
+	<select id="selectListwithPaging" resultType="com.kangandyuk.ttye.domain.BgmVO">
+		select * from tbl_bgm where id = #{id} order by video_id desc limit #{startPage}, #{endPage}
+	</select>
 
-<select id="selectList" resultType="com.kangandyuk.ttye.domain.BgmVO">
-	select * from tbl_bgm where id = #{id}
-</select>
+	<select id="selectTotalCount" resultType="com.kangandyuk.ttye.domain.BgmVO">
+		select count(*) from tbl_bgm where id = #{id}
+	</select>
 
-// selectListwithPaging
-<select id="selectListwithPaging" resultType="com.kangandyuk.ttye.domain.BgmVO">
-	select * from tbl_bgm where id = #{id} order by video_id desc limit #{startPage}, #{endPage}
-</select>
+	<delete id="delete">
+		delete from tbl_bgm where video_id = #{video_id} and id = #{id}
+	</delete>
 
 </mapper>

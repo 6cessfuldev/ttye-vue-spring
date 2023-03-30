@@ -3,6 +3,7 @@ package com.kangandyuk.ttye.service;
 import java.util.List;
 
 import com.kangandyuk.ttye.domain.BgmVO;
+import com.kangandyuk.ttye.domain.PagingVO;
 
 public interface BgmService {
 
@@ -10,5 +11,9 @@ public interface BgmService {
 
 	List<BgmVO> getList(String id);
 
-	List<BgmVO> getListWithPaging(PagingVO paging);
+	List<BgmVO> getListWithPaging(PagingVO paging , String id);
+
+	int getTotalCount(String id);
+
+	int remove(BgmVO bgm);
 }
