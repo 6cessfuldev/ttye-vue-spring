@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kangandyuk.ttye.domain.BgmVO;
+import com.kangandyuk.ttye.domain.PagingVO;
 import com.kangandyuk.ttye.repository.BgmDAO;
 
 @Service
@@ -30,6 +31,5 @@ public class BgmServiceImpl implements BgmService {
 	public List<BgmVO> getListWithPaging(PagingVO paging) {
 		return bdao.selectListWithPaging(paging);
 	}
-	
 
 }

@@ -3,6 +3,7 @@ package com.kangandyuk.ttye.repository;
 import java.util.List;
 
 import com.kangandyuk.ttye.domain.BgmVO;
+import com.kangandyuk.ttye.domain.PagingVO;
 
 public interface BgmDAO {
 
@@ -12,3 +13,4 @@ public interface BgmDAO {
 
 	List<BgmVO> selectListWithPaging(PagingVO paging);
 }
+s
