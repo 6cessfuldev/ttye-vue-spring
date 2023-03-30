@@ -42,21 +42,7 @@ export default {
 
     const modalOpen = ref(false);
 
-    const eventSources = ref([
-      {
-        events: [
-          { // this object will be "parsed" into an Event Object
-            title: 'The Title', // a property!
-            start: '2023-02-28', // a property!
-            groupId: 'diary',
-            id: 100
-          },
-          // ...
-        ],
-        color: 'blue',     // an option!
-        textColor: 'white'
-      }
-    ]);
+    const eventSources = ref([]);
 
     const renderCalendar = (el) => {
       const calendarObj = new Calendar(el, {
@@ -117,16 +103,29 @@ export default {
 
     onMounted(async () => {
 
-      await getDiaryList(new Date().getMonth+1).then((res) => {
-        diaryList.value = res.data;
+      const today = new Date();
+      const month = today.getMonth() + 1; 
+
+      await getDiaryList(month).then((res) => {
+        diaryList.value = res;
+        const events = [];
+        console.log(diaryList.value);
+        
         diaryList.value.forEach((el) => {
-          eventSources.value[0].events.push({
+          events.push({
             title: el.title,
             start: el.diary_date,
             groupId: 'diary',
-            id: el.diary_code
+            id: el.id
           });
         });
+        eventSources.value = [
+          {
+            events: events,
+            color: 'blue',     // an option!
+            textColor: 'white'
+          }
+        ];
       });
 
       document.addEventListener('click', closeModal);

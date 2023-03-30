@@ -9,4 +9,6 @@ public interface BgmService {
 	int register(BgmVO bgm);
 
 	List<BgmVO> getList(String id);
+
+	List<BgmVO> getListWithPaging(PagingVO paging);
 }

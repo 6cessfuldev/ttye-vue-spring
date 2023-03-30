@@ -38,10 +38,10 @@ public class DiaryController {
 		
 		return register > 0 ? true : false ;	
 	}
-	
+
 	@GetMapping("list")
-	public List<DiaryVO> listGET(@RequestParam(name="month") String month) {
-		
+	public List<DiaryVO> listGET(@RequestParam String month) {
+		System.out.println(month);
 		List<DiaryVO> diaryList = dsv.list(month);
 		
 		return diaryList;

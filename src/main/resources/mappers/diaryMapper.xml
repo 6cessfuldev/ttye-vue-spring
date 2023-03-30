@@ -8,8 +8,8 @@
 		insert into tbl_diary(diary_title, content, diary_date, id) values(#{diary_title}, #{content}, #{diary_date}, #{id})
 	</insert>
 
-	<select id="selectList" resultType="com.kangandyuk.ttye.repository.DiaryVO">
+	<select id="selectList" resultType="com.kangandyuk.ttye.domain.DiaryVO">
 		select * from tbl_diary
-		where substring_index(substring_index('diary_date' '-', -2), '|', 1) = #{month}
+		where substring_index(substring_index('diary_date', '-', -2), '-', 1) = LPAD(#{month}, 2, '0')
 	</select>
 </mapper>

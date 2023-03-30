@@ -22,6 +22,7 @@ export async function submitEditorContent(editorContent, diary_date, title) {
 
 //getDiaryList
 export async function getDiaryList(month) {
+    console.log(month);
     const response = await axios.get('/diary/list', {
         params: {
             month: month
@@ -29,3 +30,4 @@ export async function getDiaryList(month) {
     });
     return response.data;
 }
+
