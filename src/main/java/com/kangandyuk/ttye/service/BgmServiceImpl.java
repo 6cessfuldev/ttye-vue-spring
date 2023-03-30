@@ -28,8 +28,18 @@ public class BgmServiceImpl implements BgmService {
 	}
 	
 	@Override
-	public List<BgmVO> getListWithPaging(PagingVO paging) {
-		return bdao.selectListWithPaging(paging);
+	public List<BgmVO> getListWithPaging(PagingVO paging, String id) {
+		return bdao.selectListWithPaging(paging, id);
+	}
+
+	@Override
+	public int getTotalCount(String id) {
+		return bdao.selectTotalCount(id);
+	}
+
+	@Override
+	public int remove(BgmVO bgm) {
+		return bdao.delete(bgm);
 	}
 
 }

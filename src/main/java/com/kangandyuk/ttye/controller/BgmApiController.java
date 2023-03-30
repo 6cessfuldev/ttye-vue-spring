@@ -64,15 +64,14 @@ public class BgmApiController {
 		paging.setTotalCount(bsv.getTotalCount(user.getId()));
 		paging.makePaging();
 		
-		List<BgmVO> list = bsv.GETListWithPaging(paging, user.getId());
+		List<BgmVO> list = bsv.getListWithPaging(paging, user.getId());
 		//list 가 null 이면 에러가 난다. 
 		System.out.println(list.size());
 		return list;
 	}
 
-	// TODO: bgm 삭제
 	@PostMapping("delete")
-	public String POSTDelete(@RequestBody BgmVO bgm, HttpSession session) {
+	public boolean POSTDelete(@RequestBody BgmVO bgm, HttpSession session) {
 		System.out.println(bgm.getVideo_id());
 		System.out.println(bgm.getVideo_title());
 		
@@ -80,9 +79,8 @@ public class BgmApiController {
 		bgm.setId(user.getId());
 		
 		int isOk = bsv.remove(bgm);
-		if(isOk > 0) System.out.println("success");
 		
-		return "success";
+		return isOk > 0;
 	}
 
 
