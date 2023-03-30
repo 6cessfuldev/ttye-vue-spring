@@ -24,7 +24,7 @@
     />
     <br>
   </div>
-  <button @click="submitEditorContent">저장</button>
+  <button @click="submit">저장</button>
 </div>
 </template>
 
@@ -32,7 +32,7 @@
 import Editor from '@tinymce/tinymce-vue'
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
+import { submitEditorContent } from '@/services/DiaryService';
 
 export default {
   name: 'diaryView',
@@ -41,24 +41,18 @@ export default {
   },
   setup() {
     const editorContent = ref('')
-    const router = useRouter()
     const route = useRoute()
     const diary_date = ref('')
+    const router = useRouter()
 
-    function submitEditorContent() {
-      axios.post('/diary/register', { 
-        content: editorContent.value,
-        diary_date: route.query.diary_date
-      })
-      .then(response => {
-        if(response.data){
-          router.replace("/calendar");
-        }else{
-          alert("서버 에러");
+    function submit(){
+      return submitEditorContent(editorContent.value, route.query.diary_date)
+      .then(function(response){
+        console.log(response);
+        if(response){
+          console.log(response);
+          router.replace('/calendar');
         }
-      })
-      .catch(error => {
-        console.log(error);
       });
     }
 
@@ -67,8 +61,8 @@ export default {
     })
 
     return {
+      submit,
       editorContent,
-      submitEditorContent,
       diary_date
     }
   }

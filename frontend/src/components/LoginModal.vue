@@ -7,24 +7,22 @@
             <button class="modal-close" @click="$emit('close')">X</button>
           </div>
           <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="id">ID:</label>
-                <input type="text" id="id" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="pw">Password:</label>
-                <input type="password" id="pw" class="form-control">
-              </div>
-              <div class="button-container">
-                <button class="btn" @click="login">Login</button>
-              </div>
-              <a href="#" @click="$emit('register')">회원가입</a>
-                
-              <div class="form-validation">
-                <span class="error-message">Invalid username or password</span>
-              </div>
-            </form>
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input type="text" id="id" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="pw">Password:</label>
+              <input type="password" id="pw" class="form-control">
+            </div>
+            <div class="button-container">
+              <button class="btn" @click="login">Login</button>
+            </div>
+            <a href="#" @click="$emit('register')">signup</a>
+              
+            <div class="form-validation">
+              <span class="error-message">Invalid username or password</span>
+            </div>
           </div>
         </div>
       </div>
@@ -45,13 +43,13 @@ export default {
       var id = document.getElementById("id").value;
       var pw = document.getElementById('pw').value;
 
-      alert("login");
       axios.post("http://localhost:8080/user/login", {
         id : id,
         pw : pw
       })
       .then(function(response){
         if(response.data){
+          console.log(response.data);
           router.replace("/");
         }else{
           $(".error-message").show();
@@ -118,6 +116,15 @@ export default {
   .modal-body {
     margin-top: 20px;
     position:relative;
+  }
+
+  form{
+    position: relative;
+  }
+
+  form>a{
+    position: absolute;
+    bottom: 5px;
   }
 
   .form-group {
