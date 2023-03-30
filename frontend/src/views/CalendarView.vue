@@ -117,7 +117,7 @@ export default {
 
     onMounted(async () => {
 
-      await getDiaryList().then((res) => {
+      await getDiaryList(new Date().getMonth+1).then((res) => {
         diaryList.value = res.data;
         diaryList.value.forEach((el) => {
           eventSources.value[0].events.push({
