@@ -22,6 +22,7 @@
 </template>
 <script>
 import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { getDiaryList } from '@/services/DiaryService';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -35,6 +36,9 @@ export default {
     const calendar = ref(null);
     const clickedDate = ref(null);
     const clickedDateContent = ref(null);
+    
+    const diaryList = ref([]);
+    
 
     const modalOpen = ref(false);
 
@@ -44,7 +48,8 @@ export default {
           { // this object will be "parsed" into an Event Object
             title: 'The Title', // a property!
             start: '2023-02-28', // a property!
-            groupId: 'diary'
+            groupId: 'diary',
+            id: 100
           },
           // ...
         ],
@@ -55,7 +60,7 @@ export default {
 
     const renderCalendar = (el) => {
       const calendarObj = new Calendar(el, {
-        selectable: true, // enable day selection
+        selectable: false, // enable day selection
         // add a day click event handler that shows a modal window
         dateClick: function(info) {
           clickedDate.value = info.dateStr;
@@ -110,12 +115,25 @@ export default {
       }
     };
 
-    onMounted(() => {
+    onMounted(async () => {
+
+      await getDiaryList(new Date().getMonth+1).then((res) => {
+        diaryList.value = res.data;
+        diaryList.value.forEach((el) => {
+          eventSources.value[0].events.push({
+            title: el.title,
+            start: el.diary_date,
+            groupId: 'diary',
+            id: el.diary_code
+          });
+        });
+      });
+
       document.addEventListener('click', closeModal);
 
       calendar.value = document.getElementById('calendar');
       const calendarObj = new Calendar(calendar.value, {
-        selectable: true, // enable day selection
+        selectable: false, // enable day selection
         // add a day click event handler that shows a modal window
         dateClick: function(info) {
           clickedDate.value = info.dateStr;

@@ -20,7 +20,7 @@
                 <th>날짜</th>
               </tr>
               
-              <tr v-for="bgm, index in bgmList" :key="index">
+              <tr v-for="(bgm, index) in bgmList" :key="index">
                 <td>{{ bgm.video_title.length > 15 ? bgm.video_title.substring(0, 13) + '...' : bgm.video_title }}</td>
                 <td>{{ bgm.reg_date.slice(0, 10) }}</td>
               </tr>
@@ -29,7 +29,7 @@
           </div>
           <div class="bgm-list-insert">
             <input type="text" name="bgm-insert" id="insert-bgm" placeholder="유튜브 주소를 입력해주세요.">
-            <input type="button" id="insert-bgm-button" value="추가" v-on:click = "addBGM">
+            <input type="button" id="insert-bgm-button" value="추가" v-on:click = "addClick">
           </div>
         </div>
       </div>
@@ -37,42 +37,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { getBgmList, addBgm } from '@/services/BgmService';
+import { onMounted, ref } from 'vue';
 
 export default {
     name: 'MyBgm',
-    data(){
-      return {
-        bgmList: [],
-        bgm_url: ""
-      }
-    },
-    created() {
-      const vm = this;
-      axios.get("http://localhost:8080/bgm/list")
-        .then(function(response){
+    setup() {
 
-          console.log(response);
-          vm.bgmList = response.data;
-        })
-        .catch(function(error){
-          console.log(error);
-        })
-    },
-    methods: {
-      // loadScript() {
-      //   const script = document.createElement("script");
-      //   script.src = "https://apis.google.com/js/api.js";
-      //   console.log(window.gapi);
-      // },
+      alert(process.env.VUE_APP_YOUTUBE_API_KEY);
 
-      start() {
-        let url = this.bgm_url;
+      const bgmList = ref([]);
+      const bgm_url = ref('');
+
+      function start() {
+        let url = bgm_url.value;
         url = url.substring(url.lastIndexOf("=")+1, url.length);
-        alert(url);
+        alert(process.env.VUE_APP_YOUTUBE_API_KEY);
         // 2. Initialize the JavaScript client library.
         window.gapi.client.init({
-          'apiKey': 'AIzaSyCu_KCNxTnEtaoltxcxBr5N2NzWiNp0-EA',
+          'apiKey': process.env.VUE_APP_YOUTUBE_API_KEY,
           // clientId and scope are optional if auth is not required.
           // 'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
           // 'scope': 'profile',
@@ -84,28 +67,30 @@ export default {
         }).then(function(response) {
           console.log(response.result);
           var title = response.result.items[0].snippet.title;
-
-          axios.post('http://localhost:8080/bgm/add', {
-            videoId : url,
-            videoTitle : title
-          })
-          .then(function(response) {
-            console.log(response);
-          })
-          .catch(function(error) {
-            console.log(error);
-          })
-
+          return addBgm(url, title);
+        }).then(function(){
+          return getBgmList();
+        }).then(function(data){
+          bgmList.value = data;
         })
-      },
+      }
 
-      addBGM() {
-      this.bgm_url = document.querySelector("#insert-bgm").value;
-      alert(this.bgm_url);
-      window.gapi.load('client', this.start);
-      },
+      function addClick() {
+        bgm_url.value = document.querySelector("#insert-bgm").value;
+        window.gapi.load('client', start);
+      }
 
-    }
+      onMounted(async () => {
+        bgmList.value = await getBgmList();
+      })
+
+      return {
+        bgmList,
+        bgm_url,
+        start,
+        addClick
+      }
+    },
 
 }
 

@@ -3,7 +3,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            <h3>회원가입</h3>
+            <h3>Signup</h3>
             <button class="modal-close" @click="$emit('close')">X</button>
           </div>
           <div class="modal-body">
@@ -28,7 +28,7 @@
                 <label for="email">Email:</label>
                 <input type="text" id="email" class="form-control">
               </div>
-              <button type="submit" class="btn" @click="validation">Submit</button>
+              <button type="button" class="btn" @click="validation">Submit</button>
               <div class="form-validation">
                 <span class="error-message">Invalid username or password</span>
               </div>
@@ -150,6 +150,10 @@ export default {
   
   .modal-body {
     margin-top: 20px;
+  }
+
+  label{
+    float: left;
   }
 
   .form-group {

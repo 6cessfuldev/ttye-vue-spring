@@ -6,12 +6,14 @@ import CalendarView from '../views/CalendarView.vue'
 import DiaryListView from '../views/DiaryListView.vue'
 import LetterBoxView from '../views/LetterBoxView.vue'
 import LetterView from '../views/LetterView.vue'
+import WelcomeView from '../views/WelcomeView.vue'
+import { checkMatchStatus } from '@/services/AuthService'
 
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: IndexView
+    component: IndexView,
   },
   {
     path: '/register',
@@ -52,12 +54,26 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
+  {
+    path: '/welcome',
+    name: 'welcome',
+    component: WelcomeView
+  }
 
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+router.beforeEach(async(to, from, next) => {
+  const isMatchedIn = await checkMatchStatus();
+  if(to.name !=='welcome' && !isMatchedIn){
+    next({ name: 'welcome'})
+  } else{
+    next()
+  }
 })
 
 export default router
