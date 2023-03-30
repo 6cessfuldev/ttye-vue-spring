@@ -52,4 +52,22 @@ public class BgmApiController {
 		System.out.println(list.size()+" "+list.get(0));
 		return list;
 	}
+
+	// TODO: bgm 삭제
+	@PostMapping("delete")
+	public String POSTDelete(@RequestBody BgmVO bgm, HttpSession session) {
+		System.out.println(bgm.getVideo_id());
+		System.out.println(bgm.getVideo_title());
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		bgm.setId(user.getId());
+		
+		int isOk = bsv.remove(bgm);
+		if(isOk > 0) System.out.println("success");
+		
+		return "success";
+	}
+ 
+	
+
 }
