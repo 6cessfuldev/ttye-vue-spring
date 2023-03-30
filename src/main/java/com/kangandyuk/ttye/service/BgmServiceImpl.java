@@ -26,6 +26,10 @@ public class BgmServiceImpl implements BgmService {
 		return bdao.selectList(id);
 	}
 	
+	@Override
+	public List<BgmVO> getListWithPaging(PagingVO paging) {
+		return bdao.selectListWithPaging(paging);
+	}
 	
 
 }

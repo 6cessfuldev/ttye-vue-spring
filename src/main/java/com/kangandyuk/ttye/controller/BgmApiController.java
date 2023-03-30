@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kangandyuk.ttye.domain.BgmVO;
+import com.kangandyuk.ttye.domain.PagingVO;
 import com.kangandyuk.ttye.domain.UserVO;
 import com.kangandyuk.ttye.service.BgmService;
 
@@ -49,7 +50,23 @@ public class BgmApiController {
 		UserVO user = (UserVO)session.getAttribute("user");
 		
 		List<BgmVO> list = bsv.getList(user.getId());
-		System.out.println(list.size()+" "+list.get(0));
+		//list 가 null 이면 에러가 난다. 
+		System.out.println(list.size());
+		return list;
+	}
+	
+	//bgm PagingVO 를 이용한 list
+	@GetMapping("listwithpaging")
+	public List<BgmVO> GETListWithPaging(PagingVO paging, HttpSession session){
+		
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		paging.setTotalCount(bsv.getTotalCount(user.getId()));
+		paging.makePaging();
+		
+		List<BgmVO> list = bsv.GETListWithPaging(paging, user.getId());
+		//list 가 null 이면 에러가 난다. 
+		System.out.println(list.size());
 		return list;
 	}
 
@@ -67,7 +84,7 @@ public class BgmApiController {
 		
 		return "success";
 	}
- 
-	
+
+
 
 }
