@@ -10,22 +10,36 @@
         </div>
         <div>
           <div class="bgm-list">
-            <table border="1">
-              <colgroup>
-                <col style="width:60%">
-                <col style="width:30%">
-              </colgroup>
-              <tr>
-                <th>제목</th>
-                <th>날짜</th>
-              </tr>
-              
-              <tr v-for="(bgm, index) in bgmList" :key="index">
-                <td>{{ bgm.video_title.length > 15 ? bgm.video_title.substring(0, 13) + '...' : bgm.video_title }}</td>
-                <td>{{ bgm.reg_date.slice(0, 10) }}</td>
-              </tr>
-
+            //bgm table with paging
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">삭제</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(bgm, index) in bgmList" :key="bgm.bgm_id">
+                  <th scope="row">{{index+1}}</th>
+                  <td>{{bgm.bgm_title}}</td>
+                  <td><button type="button" class="btn btn-danger">삭제</button></td>
+                </tr>
+              </tbody>
             </table>
+            //paging button
+            <ul class="pagination">
+              <li class="page-item" v-if="page > 1">
+                <button class="page-link" v-on:click="prevPage">이전</button>
+              </li>
+              <li class="page-item" v-for="i in pageList" :key="i">
+                <button class="page-link" v-on:click="changePage(i)">{{i}}</button>
+              </li>
+              <li class="page-item" v-if="page < pageList.length">
+                <button class="page-link" v-on:click="nextPage">다음</button>
+              </li>
+            </ul>
+
           </div>
           <div class="bgm-list-insert">
             <input type="text" name="bgm-insert" id="insert-bgm" placeholder="유튜브 주소를 입력해주세요.">
@@ -44,10 +58,32 @@ export default {
     name: 'MyBgm',
     setup() {
 
-      alert(process.env.VUE_APP_YOUTUBE_API_KEY);
+      const page = ref(1);
+      const pageList = ref([]);
 
       const bgmList = ref([]);
       const bgm_url = ref('');
+
+      function changePage(pageNum) {
+        page.value = pageNum;
+        getBgmList(pageNum).then((data) => {
+          bgmList.value = data;
+        });
+      }
+
+      function nextPage() {
+        page.value += 1;
+        getBgmList(page.value).then((data) => {
+          bgmList.value = data;
+        });
+      }
+
+      function prevPage() {
+        page.value -= 1;
+        getBgmList(page.value).then((data) => {
+          bgmList.value = data;
+        });
+      }
 
       function start() {
         let url = bgm_url.value;
@@ -69,7 +105,7 @@ export default {
           var title = response.result.items[0].snippet.title;
           return addBgm(url, title);
         }).then(function(){
-          return getBgmList();
+          return getBgmList(1);
         }).then(function(data){
           bgmList.value = data;
         })
@@ -81,10 +117,15 @@ export default {
       }
 
       onMounted(async () => {
-        bgmList.value = await getBgmList();
+        bgmList.value = await getBgmList(1);
       })
 
       return {
+        changePage,
+        nextPage,
+        prevPage,
+        page,
+        pageList,
         bgmList,
         bgm_url,
         start,
@@ -98,6 +139,34 @@ export default {
 </script>
 
 <style scoped>
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top : 10px;
+  padding-bottom : 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.page-item{
+  padding: 0.5rem;
+}
+
+
+
+.page-link{
+  cursor: pointer;
+}
+
+.page-link:hover{
+  background-color: #e9ecef;
+}
+
+.page-link:active{
+  background-color: #e9ecef;
+}
+
 #offcanvasExample{
   text-align: center;
 }

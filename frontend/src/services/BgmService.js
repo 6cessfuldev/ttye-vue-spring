@@ -1,13 +1,21 @@
 import axios from 'axios';
 
-export async function getBgmList() {
-  try {
-    const response = await axios.get("http://localhost:8080/bgm/list");
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
+export async function getBgmList(pageNum) {
+
+    return axios.get('http://localhost:8080/bgm/listWithPaging', {
+        params : {
+            currentPage : pageNum,
+            blockCount : 10,
+            blockPage : 5,
+        }
+    })
+    .then(function(response) {
+        console.log(response.data);
+        return response.data;
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
 }
 
 export async function addBgm(url, title) {
