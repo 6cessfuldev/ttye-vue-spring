@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export async function submitEditorContent(editorContent, diary_date) {
+export async function submitEditorContent(editorContent, diary_date, title) {
     axios.post('/diary/register', { 
         content: editorContent,
-        diary_date: diary_date
+        diary_date: diary_date,
+        diary_title: title,
     })
     .then(response => {
         if(response.data){
@@ -23,7 +24,7 @@ export async function submitEditorContent(editorContent, diary_date) {
 export async function getDiaryList(date) {
     const response = await axios.get('/diary/list', {
         params: {
-            date: date
+            diary_date: date
         }
     });
     return response.data;
