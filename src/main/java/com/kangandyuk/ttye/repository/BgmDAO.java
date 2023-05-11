@@ -11,10 +11,9 @@ public interface BgmDAO {
 
 	List<BgmVO> selectList(String id);
 
-	List<BgmVO> selectListWithPaging(PagingVO paging, String id);
+	List<BgmVO> selectListWithPaging(PagingVO paging);
 
 	int selectTotalCount(String id);
 
 	int delete(BgmVO bgm);
 }
-s

@@ -31,12 +31,9 @@
 <script>
 import axios from 'axios';
 import $ from 'jquery';
-import { useRouter } from 'vue-router';
 
 export default {
   setup() {
-
-    const router = useRouter()
 
     function login(){
 
@@ -50,7 +47,7 @@ export default {
       .then(function(response){
         if(response.data){
           console.log(response.data);
-          router.replace("/");
+          location.reload();
         }else{
           $(".error-message").show();
         }

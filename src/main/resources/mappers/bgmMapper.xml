@@ -13,12 +13,13 @@
 		select * from tbl_bgm where id = #{id}
 	</select>
 	
-	<select id="selectListwithPaging" resultType="com.kangandyuk.ttye.domain.BgmVO">
+	<select id="selectListWithPaging" resultType="com.kangandyuk.ttye.domain.BgmVO">
 		select * from tbl_bgm where id = #{id} order by video_id desc limit #{startPage}, #{endPage}
 	</select>
 
-	<select id="selectTotalCount" resultType="com.kangandyuk.ttye.domain.BgmVO">
-		select count(*) from tbl_bgm where id = #{id}
+	<select id="selectTotalCount" resultType="int">
+		select COALESCE(count(*), 0) from tbl_bgm where id = #{id}
+		
 	</select>
 
 	<delete id="delete">

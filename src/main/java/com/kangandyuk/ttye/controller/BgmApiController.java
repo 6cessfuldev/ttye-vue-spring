@@ -50,23 +50,20 @@ public class BgmApiController {
 		UserVO user = (UserVO)session.getAttribute("user");
 		
 		List<BgmVO> list = bsv.getList(user.getId());
-		//list 가 null 이면 에러가 난다. 
-		System.out.println(list.size());
+
 		return list;
 	}
 	
-	//bgm PagingVO 를 이용한 list
-	@GetMapping("listwithpaging")
-	public List<BgmVO> GETListWithPaging(PagingVO paging, HttpSession session){
-		
+	@PostMapping("listWithPaging")
+	public List<BgmVO> GETListWithPaging(@RequestBody PagingVO paging, HttpSession session){
+		System.out.println(paging.toString());
 		UserVO user = (UserVO)session.getAttribute("user");
 		
 		paging.setTotalCount(bsv.getTotalCount(user.getId()));
 		paging.makePaging();
+		paging.setId(user.getId());
 		
-		List<BgmVO> list = bsv.getListWithPaging(paging, user.getId());
-		//list 가 null 이면 에러가 난다. 
-		System.out.println(list.size());
+		List<BgmVO> list = bsv.getListWithPaging(paging);
 		return list;
 	}
 

@@ -1,8 +1,10 @@
 <template>
 <div class="container">
-<div class="wrapper">
+  <div class="wrapper">
+    <!-- 우측 상단에 로그아웃 버튼 -->
     <div class="title">
       <h1>Couple Blog</h1>
+      <button class="logoutBtn" v-show="loginStatus" @click="logout">Logout</button>
     </div>
     <div class="img-wrap" @click="turnAround">  
       <img src="https://images.unsplash.com/photo-1506014299253-3725319c0f69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="">
@@ -13,8 +15,9 @@
 </template>
 <script>
 import BeforeMatch from '@/components/BeforeMatch.vue';
-import { useRouter } from 'vue-router';
-// import axios from 'axios';
+import { onMounted } from 'vue';
+import { ref } from 'vue';
+import axios from 'axios';
 
 export default {
   name: "WelcomeView",
@@ -23,10 +26,17 @@ export default {
   },
   setup() {    
 
-    const router = useRouter()
+    const loginStatus = ref(false)
 
-    function goToDiary() {
-      router.push('/diary');
+    function logout() {
+      axios.get("http://localhost:8080/user/logout")
+      .then(function(response){
+        console.log(response.data);
+        location.reload();
+      })
+      .catch(function(error){
+        console.log(error);
+      });
     }
 
     function turnAround() {
@@ -39,14 +49,30 @@ export default {
       }
     }
 
+    onMounted(() => {
+      axios.get("http://localhost:8080/user/isLoggedIn")
+      .then(function(response){
+        if(!response.data) {
+          loginStatus.value = false;
+        } else {
+          loginStatus.value = true;
+        }
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    })
+
 
     return {
       turnAround,
-      goToDiary,
+      loginStatus,
+      logout
     }
   }
 }
 </script>
+
 <style scoped>
 .container{
     display: flex;
@@ -61,6 +87,21 @@ export default {
 .title{
   margin-top: 30px;
   text-align: center;
+}
+
+.logoutBtn{
+  /* 우측 상단 로그아웃버튼 */
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #b3afaf;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #b3afaf;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .img-wrap{

@@ -26,7 +26,7 @@ export default {
     },
     setup() {
 
-        const router = useRouter()
+        const router = useRouter();
         const isLoggedIn = ref(false)
         const isMatched = ref(false)
         const loginModal = ref(false)
@@ -36,15 +36,19 @@ export default {
         onMounted(() => {
             axios.get("http://localhost:8080/user/isLoggedIn")
             .then(function(response){
-                if(!response.data) {
-                isLoggedIn.value = false;
+                if(response.data) {
+                    isLoggedIn.value = true;
+                    axios.get("http://localhost:8080/user/isMatched")
+                    .then(function(response){
+                        if(response.data) { 
+                            isMatched.value = true;
+                            router.push('/');
+
+                        }
+                        else isMatched.value = false;
+                    });    
                 } else {
-                isLoggedIn.value = true;
-                axios.get("http://localhost:8080/user/isMatched")
-                .then(function(response){
-                    if(response.data) router.replace('/');
-                    else isMatched.value = false;
-                });
+                    isLoggedIn.value = false;
                 }
             })
             .catch(function(error){

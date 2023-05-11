@@ -12,6 +12,18 @@ public class PagingVO {
     private int endCount; //한 페이지에서 보여줄 게시글의 끝 번호
     private int startPage; //시작 페이지
     private int endPage; //마지막 페이지
+    private String id;
+
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public PagingVO() {
+    }
 
     public int getTotalCount() {
         return totalCount;
@@ -86,13 +98,13 @@ public class PagingVO {
     }
 
     @Override
-    public String toString() {
-        return "PagingVO [totalCount=" + totalCount + ", totalPage=" + totalPage + ", currentPage=" + currentPage
-                + ", blockCount=" + blockCount + ", blockPage=" + blockPage + ", startCount=" + startCount + ", endCount="
-                + endCount + ", startPage=" + startPage + ", endPage=" + endPage + "]";
-    }
+	public String toString() {
+		return "PagingVO [totalCount=" + totalCount + ", totalPage=" + totalPage + ", currentPage=" + currentPage
+				+ ", blockCount=" + blockCount + ", blockPage=" + blockPage + ", startCount=" + startCount
+				+ ", endCount=" + endCount + ", startPage=" + startPage + ", endPage=" + endPage + ", id=" + id + "]";
+	}
 
-    //PagingVO 생성자
+	//PagingVO 생성자
     public PagingVO(int currentPage, int blockCount, int blockPage) {
         this.currentPage = currentPage;
         this.blockCount = blockCount;

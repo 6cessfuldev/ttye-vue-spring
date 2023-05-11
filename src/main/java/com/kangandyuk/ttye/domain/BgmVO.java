@@ -9,5 +9,6 @@ public class BgmVO {
 	private String video_id;
 	private String video_title;
 	private String bgm_register_date;
+	private boolean video_pick;
 	
 }

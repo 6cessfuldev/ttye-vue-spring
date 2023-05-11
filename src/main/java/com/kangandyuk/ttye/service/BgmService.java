@@ -11,7 +11,7 @@ public interface BgmService {
 
 	List<BgmVO> getList(String id);
 
-	List<BgmVO> getListWithPaging(PagingVO paging , String id);
+	List<BgmVO> getListWithPaging(PagingVO paging);
 
 	int getTotalCount(String id);
 

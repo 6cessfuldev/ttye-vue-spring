@@ -9,5 +9,6 @@ import mitt from 'mitt'
 
 const emitter = mitt();
 const app = createApp(App);
+
 app.config.globalProperties.emmiter=emitter;
 app.use(router).use(BootstrapIconsPlugin).mount('#app');

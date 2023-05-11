@@ -2,12 +2,10 @@ import axios from 'axios';
 
 export async function getBgmList(pageNum) {
 
-    return axios.get('http://localhost:8080/bgm/listWithPaging', {
-        params : {
-            currentPage : pageNum,
-            blockCount : 10,
-            blockPage : 5,
-        }
+    return axios.post('http://localhost:8080/bgm/listWithPaging', {
+        currentPage : pageNum,
+        blockCount : 10,
+        blockPage : 5,
     })
     .then(function(response) {
         console.log(response.data);

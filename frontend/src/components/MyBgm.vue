@@ -10,7 +10,6 @@
         </div>
         <div>
           <div class="bgm-list">
-            //bgm table with paging
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -27,7 +26,6 @@
                 </tr>
               </tbody>
             </table>
-            //paging button
             <ul class="pagination">
               <li class="page-item" v-if="page > 1">
                 <button class="page-link" v-on:click="prevPage">이전</button>

@@ -82,11 +82,12 @@ export default {
         .then(function(response){
           if(response.data){
             alert("회원가입 되었습니다.");
+            location.reload();
           }else{
             alert("회원가입 에러!!!");
           }
 
-          this.$emit("submit");
+          
         })
       })
       .catch(function(error){
