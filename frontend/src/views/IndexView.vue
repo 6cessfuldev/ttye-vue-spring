@@ -1,8 +1,8 @@
 <template>
     <div class="index-page">
-      <HeaderNav></HeaderNav>
+      
       <div class="title">
-        <h1>제목은 뭐로 할까나</h1>
+        <h1>제목</h1>
         <img src="https://via.placeholder.com/200x300" alt="대문 사진">
         <p>
           <br>
@@ -13,13 +13,9 @@
   </template>
 
 <script>
-import HeaderNav from '@/components/HeaderNav.vue'
 
 export default {
   name : "IndexView",
-  components: {
-    HeaderNav,
-  },
   setup() {
 
   }
@@ -28,7 +24,6 @@ export default {
 </script>
 <style>
 .index-page {
-  background-color: #EDDBC7;
   text-align: center;
   padding-bottom: 100px;
 }
@@ -37,5 +32,10 @@ export default {
 <style scoped>
 .title{
   padding: 30px;
+}
+h1{
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 </style>

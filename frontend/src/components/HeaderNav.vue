@@ -72,19 +72,19 @@ export default {
 }
 
 nav {
-  background-color: #A7727D; 
   text-align: center;
   padding: 30px;
 }
 
 nav a {
+  font-size: 1.5rem;
   text-decoration: none;
   font-weight: bold;
-  color: white;
+  color: grey;
 }
 
 nav a.router-link-exact-active {
-  color: #EDDBC7;
+  color: black;
 }
 .bgm {
   text-align: center;
@@ -92,9 +92,9 @@ nav a.router-link-exact-active {
   width: 50px;
   line-height: 50px;
   border-radius: 10px;
-  background-color: #EDDBC7;
+  background-color: grey;
   position: absolute;
-  color: #A7727D;
+  color: white;
   left: 30px;
   top: 20px;
   text-decoration: none;
@@ -107,9 +107,9 @@ nav a.router-link-exact-active {
   width: 70px;
   line-height: 50px;
   border-radius: 10px;
-  background-color: #EDDBC7;
+  background-color: grey;
   position: absolute;
-  color: #A7727D;
+  color: white;
   right: 30px;
   top: 20px;
   text-decoration: none;
